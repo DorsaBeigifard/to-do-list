@@ -370,7 +370,7 @@ button > i {
   color: var(--gery-color);
 }
 
-.todo__action {
+.todo__remove, .todo__check {
   background: none;
   border: none;
   color: var(--primary-color);
@@ -379,19 +379,12 @@ button > i {
   transition: color 0.3s ease, transform 0.3s ease;
 }
 
-.todo__action:hover {
-  transform: scale(1.2);
-}
-
-.todo__action--check i {
-  color: var(--primary-color);
-}
-
-.todo__action--remove i {
-  color: var(--primary-color);
-}
+.todo__remove:hover, .todo__check:hover{
+transform: scale(1.2);} 
 
 .todo__item--completed {
   text-decoration: line-through;
   opacity: 0.5;
 }
+
+
