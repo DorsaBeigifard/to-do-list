@@ -23,11 +23,21 @@ html {
 
 body {
   font-size: var(--fontsize);
-  height: 100vh;
   display: flex;
   flex-direction: column;
   background-image: linear-gradient(100deg, #575656, #062e3f);
   color: var(--primary-color);
+}
+
+@media screen and (min-width: 992px) {
+  body {
+    height: 100vh;
+  }
+}
+
+main {
+  width: 100%;
+  height: 100%;
 }
 
 h1 {
@@ -175,12 +185,13 @@ h2 {
 .app {
   background: rgb(160, 158, 156, 0.1);
   width: 70%;
-  height: 100%;
+  height: 700px;
   border-radius: var(--radius);
   padding: 4rem;
   display: flex;
   flex-direction: column;
   gap: 3rem;
+  overflow-y: scroll;
 }
 
 .form__input-group {
@@ -370,7 +381,8 @@ button > i {
   color: var(--gery-color);
 }
 
-.todo__remove, .todo__check {
+.todo__remove,
+.todo__check {
   background: none;
   border: none;
   color: var(--primary-color);
@@ -379,12 +391,12 @@ button > i {
   transition: color 0.3s ease, transform 0.3s ease;
 }
 
-.todo__remove:hover, .todo__check:hover{
-transform: scale(1.2);} 
+.todo__remove:hover,
+.todo__check:hover {
+  transform: scale(1.2);
+}
 
 .completed {
   text-decoration: line-through;
   opacity: 0.5;
 }
-
-

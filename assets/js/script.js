@@ -25,6 +25,7 @@ const clearCompletedFilterOption = document.querySelector(
 );
 
 const selectedFilter = document.querySelector(".filter-options-select");
+const clearMobile = document.querySelector(".filter-option-clear");
 
 // for storage:
 let toDos = [];
@@ -35,7 +36,7 @@ form.addEventListener("submit", addNewToDo);
 function addNewToDo(e) {
   e.preventDefault(); // It prevents refreshing every time something is submitted
 
-  if (!formInput) return null;
+  if (!formInput) return;
 
   const newToDo = {
     id: Date.now(),
@@ -153,33 +154,14 @@ function filtertoDos() {
 
 function clearAllCompleted() {
   toDos = toDos.filter((todo) => !todo.isCompleted);
-  createInDOM(toDos);
+  filtertoDos(toDos);
 }
 
 //----------FILTER mobile:
 
 selectedFilter.addEventListener("change", (e) => {
   filterValue = e.target.value;
-  filterMobile();
+  filtertoDos();
 });
 
-function filterMobile() {
-  switch (filterValue) {
-    case "all": {
-      createInDOM(toDos);
-      break;
-    }
-    case "completed": {
-      const filteredToDos = toDos.filter((todo) => todo.isCompleted);
-      createInDOM(filteredToDos);
-      break;
-    }
-    case "not-completed": {
-      const filteredToDos = toDos.filter((todo) => !todo.isCompleted);
-      createInDOM(filteredToDos);
-      break;
-    }
-    default:
-      createInDOM(toDos);
-  }
-}
+clearMobile.addEventListener("click", clearAllCompleted);
