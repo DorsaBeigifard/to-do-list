@@ -24,6 +24,8 @@ const clearCompletedFilterOption = document.querySelector(
   ".filter-option:nth-child(4)"
 );
 
+const selectedFilter = document.querySelector(".filter-options-select");
+
 // for storage:
 let toDos = [];
 
@@ -152,4 +154,32 @@ function filtertoDos() {
 function clearAllCompleted() {
   toDos = toDos.filter((todo) => !todo.isCompleted);
   createInDOM(toDos);
+}
+
+//----------FILTER mobile:
+
+selectedFilter.addEventListener("change", (e) => {
+  filterValue = e.target.value;
+  filterMobile();
+});
+
+function filterMobile() {
+  switch (filterValue) {
+    case "all": {
+      createInDOM(toDos);
+      break;
+    }
+    case "completed": {
+      const filteredToDos = toDos.filter((todo) => todo.isCompleted);
+      createInDOM(filteredToDos);
+      break;
+    }
+    case "not-completed": {
+      const filteredToDos = toDos.filter((todo) => !todo.isCompleted);
+      createInDOM(filteredToDos);
+      break;
+    }
+    default:
+      createInDOM(toDos);
+  }
 }
