@@ -7,15 +7,28 @@ const formattedDate = currentDate.toLocaleDateString("en-US", {
 });
 document.getElementById("date").textContent = formattedDate;
 
-// 1- when the form is submitted => create new to-do
-let toDos = [];
-
+//Select from DOM
 const formInput = document.querySelector(".form__input");
 const form = document.querySelector(".form");
 const toDoList = document.querySelector(".todo__list");
 
-form.addEventListener("submit", addNewToDo);
+const allToDosFilter = document.querySelector(".filter-option:nth-child(1)");
+const allFilterOption = document.querySelector(".filter-option:nth-child(1)");
+const completedFilterOption = document.querySelector(
+  ".filter-option:nth-child(2)"
+);
+const notCompletedFilterOption = document.querySelector(
+  ".filter-option:nth-child(3)"
+);
+const clearCompletedFilterOption = document.querySelector(
+  ".filter-option:nth-child(4)"
+);
 
+// for storage:
+let toDos = [];
+
+// when the form is submitted => create new to-do
+form.addEventListener("submit", addNewToDo);
 // add to array ToDos
 function addNewToDo(e) {
   e.preventDefault(); // It prevents refreshing every time something is submitted
@@ -25,16 +38,15 @@ function addNewToDo(e) {
   const newToDo = {
     id: Date.now(),
     createdAt: new Date().toISOString(),
-    title: formInput.value, // Corrected here
+    title: formInput.value,
     isCompleted: false,
   };
 
   toDos.push(newToDo);
-  createInDOM(toDos);
+  filtertoDos();
 }
-
+// -------- Add the task to DOM
 function createInDOM(toDos) {
-  // ADD TO DOM
   let result = "";
   toDos.forEach((todo) => {
     result += `
@@ -59,7 +71,7 @@ function createInDOM(toDos) {
   toDoList.innerHTML = result;
   formInput.value = ""; // Clear the input after adding the to-do
 
-  //here we also have todo__remove.
+  // buttons
   const removeBtn = [...document.querySelectorAll(".todo__remove")];
   removeBtn.forEach((btn) => {
     btn.addEventListener("click", removeToDo);
@@ -77,9 +89,9 @@ function removeToDo(e) {
 
   const todoId = Number(e.target.dataset.todoId);
 
-  toDos = toDos.filter((todo) => todo.id !== todoId); //intori ooni ke yeki hast hazf mishe //updated array
+  toDos = toDos.filter((todo) => todo.id !== todoId);
 
-  createInDOM(toDos);
+  filtertoDos();
   // console.log(toDos);
 }
 
@@ -91,23 +103,10 @@ function checkToDo(e) {
   filtertoDos();
 }
 
-console.log(toDos);
-
 //----------FILTER DESKTOP:
 
-const allToDosFilter = document.querySelector(".filter-option:nth-child(1)");
-const allFilterOption = document.querySelector(".filter-option:nth-child(1)");
-const completedFilterOption = document.querySelector(
-  ".filter-option:nth-child(2)"
-);
-const notCompletedFilterOption = document.querySelector(
-  ".filter-option:nth-child(3)"
-);
-const clearCompletedFilterOption = document.querySelector(
-  ".filter-option:nth-child(4)"
-);
-
 let filterValue = "all";
+
 allFilterOption.addEventListener("click", () => {
   (filterValue = "all"), filtertoDos();
   allFilterOption.classList.add("filter-option--active");
