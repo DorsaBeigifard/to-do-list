@@ -241,7 +241,7 @@ button > i {
   display: flex;
 }
 
-.app__filter-option {
+.filter-option {
   cursor: pointer;
   color: var(--gery-color);
   background-color: transparent;
@@ -249,11 +249,11 @@ button > i {
   font-weight: 400;
 }
 
-.app__filter-option:hover {
+.filter-option:hover {
   color: var(--primary-color);
 }
 
-.app__filter-option--active {
+.filter-option--active {
   color: var(--primary-color);
   font-weight: 600;
 }
@@ -382,7 +382,7 @@ button > i {
 .todo__remove:hover, .todo__check:hover{
 transform: scale(1.2);} 
 
-.todo__item--completed {
+.completed {
   text-decoration: line-through;
   opacity: 0.5;
 }
