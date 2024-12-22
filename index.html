@@ -6,6 +6,7 @@
     <title>To Do List</title>
     <link rel="stylesheet" href="assets/css/style.css" />
     <link rel="stylesheet" href="assets/css/fonts.css" />
+    <link rel="stylesheet" href="assets/css/modal.css" />
     <!-- font awesome-> دقت کن که ممکنه دچار اختلال توی کلیک کردن بشه. -->
     <link
       rel="stylesheet"
@@ -16,6 +17,24 @@
     />
   </head>
   <body>
+    <div class="backdrop hidden">
+      <div class="modal">
+        <div class="modal__header">
+          <h2>Edit Task</h2>
+          <button class="close-modal">
+            <i class="far fa-window-close"></i>
+          </button>
+        </div>
+        <div class="modal__content">
+          <label for="edit-todo">Title</label>
+          <input type="text" name="edit-todo" id="edit-todo" />
+        </div>
+        <div class="modal__actions">
+          <button class="btn btn--primary" id="update-todo">Change</button>
+          <button class="btn btn--outline close-modal">Discard</button>
+        </div>
+      </div>
+    </div>
     <header>
       <!-- manage themes here -->
     </header>
@@ -52,9 +71,7 @@
             </form>
 
             <div class="app__filter">
-              <span class="filter-option filter-option--active"
-                >All</span
-              >
+              <span class="filter-option filter-option--active">All</span>
               <span class="filter-option">Completed</span>
               <span class="filter-option">Not Completed</span>
               <span class="filter-option">Clear Completed</span>
@@ -80,6 +97,9 @@
                   <button class="todo__check">
                     <i class="far fa-check-square"></i>
                   </button>
+                  <button class="todo__edit">
+                    <i class="far fa-edit"></i>
+                  </button>
                   <button class="todo__remove">
                     <i class="far fa-trash-alt"></i>
                   </button>
@@ -91,5 +111,6 @@
       </div>
     </main>
     <script src="assets/js/script.js"></script>
+    <!-- <script src="assets/js/modal.js"></script> -->
   </body>
 </html>

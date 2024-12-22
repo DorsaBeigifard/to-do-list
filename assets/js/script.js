@@ -28,7 +28,10 @@ const selectedFilter = document.querySelector(".filter-options-select");
 const clearMobile = document.querySelector(".filter-option-clear");
 
 // for storage:
-let toDos = [];
+document.addEventListener("DOMContentLoaded", (e) => {
+  const toDos = getAllToDos();
+  createInDOM(toDos);
+});
 
 // when the form is submitted => create new to-do
 form.addEventListener("submit", addNewToDo);
@@ -45,7 +48,7 @@ function addNewToDo(e) {
     isCompleted: false,
   };
 
-  toDos.push(newToDo);
+  saveToLocalStorage(newToDo);
   filtertoDos();
 }
 // -------- Add the task to DOM
@@ -63,6 +66,9 @@ function createInDOM(toDos) {
                   ).toLocaleDateString("en")}</span>
                   <button  data-todo-id = ${todo.id} class="todo__check">
                     <i class="far fa-check-square"></i>
+                  </button>
+                  <button  data-todo-id = ${todo.id} class="todo__edit">
+                    <i class="far fa-edit"></i>
                   </button>
                   <button data-todo-id = ${todo.id} class="todo__remove">
                     <i class="far fa-trash-alt"></i>
@@ -84,25 +90,27 @@ function createInDOM(toDos) {
   checkBtn.forEach((btn) => {
     btn.addEventListener("click", checkToDo);
   });
+
+  const editBtn = [...document.querySelectorAll(".todo__edit")];
+  editBtn.forEach((btn) => {
+    btn.addEventListener("click", openEditForm);
+  });
 }
 
 function removeToDo(e) {
-  // console.log(e.target.dataset.todoId); // * Data attribute: in this way we can access to do id
-  //data-todo-id={} => todoId (we should select it this way.)
-
+  let toDos = getAllToDos();
   const todoId = Number(e.target.dataset.todoId);
-
   toDos = toDos.filter((todo) => todo.id !== todoId);
-
+  saveAllToDos(toDos);
   filtertoDos();
-  // console.log(toDos);
 }
 
 function checkToDo(e) {
+  let toDos = getAllToDos();
   const todoId = Number(e.target.dataset.todoId);
-
   const toDo = toDos.find((todo) => todo.id === todoId);
   toDo.isCompleted = !toDo.isCompleted;
+  saveAllToDos(toDos);
   filtertoDos();
 }
 
@@ -134,6 +142,7 @@ notCompletedFilterOption.addEventListener("click", () => {
 clearCompletedFilterOption.addEventListener("click", clearAllCompleted);
 
 function filtertoDos() {
+  const toDos = getAllToDos();
   let filteredToDos;
   switch (filterValue) {
     case "all":
@@ -153,6 +162,7 @@ function filtertoDos() {
 }
 
 function clearAllCompleted() {
+  const toDos = getAllToDos();
   toDos = toDos.filter((todo) => !todo.isCompleted);
   filtertoDos(toDos);
 }
@@ -165,3 +175,65 @@ selectedFilter.addEventListener("change", (e) => {
 });
 
 clearMobile.addEventListener("click", clearAllCompleted);
+
+//----------- MODAL - EDIT
+
+const closeModalBtns = document.querySelectorAll(".close-modal"); //discard and close window
+const backdrop = document.querySelector(".backdrop");
+const modal = document.querySelector(".modal");
+
+function openModal(e) {
+  backdrop.classList.remove("hidden");
+}
+
+closeModalBtns.forEach((btn) => btn.addEventListener("click", closeModal));
+backdrop.addEventListener("click", closeModal);
+function closeModal(e) {
+  backdrop.classList.add("hidden");
+}
+
+const editToDoInput = document.querySelector("#edit-todo");
+const updateToDoBtn = document.querySelector("#update-todo");
+updateToDoBtn.addEventListener("click", updateTodo);
+
+let toDoToEditId;
+
+function openEditForm(e) {
+  toDoToEditId = Number(e.target.dataset.todoId);
+  const toDos = getAllToDos();
+  const toDoToEdit = toDos.find((t) => t.id === toDoToEditId); // which todo will be edited ?
+  editToDoInput.value = toDoToEdit.title;
+  openModal();
+}
+
+function updateTodo(e) {
+  const toDos = getAllToDos();
+  const toDo = toDos.find((t) => t.id === toDoToEditId);
+  toDo.title = editToDoInput.value;
+  saveAllToDos(toDos);
+  filtertoDos();
+  closeModal();
+}
+
+const modalContent = document.querySelector(".modal");
+modalContent.addEventListener("click", (e) => {
+  e.stopPropagation();
+});
+
+//------------- local storage
+
+function getAllToDos() {
+  const savedToDos = JSON.parse(localStorage.getItem("toDos")) || [];
+  return savedToDos;
+}
+
+function saveToLocalStorage(toDo) {
+  const savedToDos = getAllToDos();
+  savedToDos.push(toDo);
+  localStorage.setItem("toDos", JSON.stringify(savedToDos));
+  return savedToDos;
+}
+
+function saveAllToDos(toDos) {
+  localStorage.setItem("toDos", JSON.stringify(toDos));
+}

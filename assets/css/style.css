@@ -382,7 +382,8 @@ button > i {
 }
 
 .todo__remove,
-.todo__check {
+.todo__check,
+.todo__edit {
   background: none;
   border: none;
   color: var(--primary-color);
@@ -391,8 +392,13 @@ button > i {
   transition: color 0.3s ease, transform 0.3s ease;
 }
 
+.todo__edit {
+  font-size: 1.7rem;
+}
+
 .todo__remove:hover,
-.todo__check:hover {
+.todo__check:hover,
+.todo__edit:hover {
   transform: scale(1.2);
 }
 
