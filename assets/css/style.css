@@ -131,6 +131,8 @@ h2 {
   color: var(--gery-color);
 }
 
+.title-container__typewriter{
+margin-bottom: 4rem;}
 .title-container__typewriter h1 span {
   display: block;
   white-space: nowrap;
@@ -366,6 +368,7 @@ button > i {
   text-align: left;
   word-wrap: break-word;
   color: var(--primary-color);
+  
 }
 
 .todo__details {
