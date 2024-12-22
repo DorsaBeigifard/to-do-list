@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To Do List</title>
+    <link rel="stylesheet" href="src/css/style.css" />
+    <link rel="stylesheet" href="src/css/modal.css" />
+    <link rel="stylesheet" href="src/css/fonts.css" />
+    <!-- font awesome-> دقت کن که ممکنه دچار اختلال توی کلیک کردن بشه. -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <div class="backdrop hidden">
+      <div class="modal">
+        <div class="modal__header">
+          <h2>Edit Task</h2>
+          <button class="close-modal">
+            <i class="far fa-window-close"></i>
+          </button>
+        </div>
+        <div class="modal__content">
+          <label for="edit-todo">Title</label>
+          <input type="text" name="edit-todo" id="edit-todo" />
+        </div>
+        <div class="modal__actions">
+          <button class="btn btn--primary" id="update-todo">Change</button>
+          <button class="btn btn--outline close-modal">Discard</button>
+        </div>
+      </div>
+    </div>
+    <header>
+      <!-- manage themes here -->
+    </header>
+    <main>
+      <div class="title-container container">
+        <div class="title-container__typewriter">
+          <h1>
+            <span class="title-container__word">Dream.</span>
+            <span class="title-container__word">Plan.</span>
+            <span class="title-container__word">Do.</span>
+          </h1>
+        </div>
+        <div class="title-container__typewriter-mobile">
+          <h1 class="typing-demo">Dream. Plan. Do.</h1>
+        </div>
+        <p id="date"></p>
+      </div>
+
+      <div class="main-content container">
+        <h2 class="main-content__header">Your Tasks</h2>
+        <div class="app">
+          <div class="app__form-container">
+            <form class="form">
+              <div class="form__input-group">
+                <input
+                  type="text"
+                  class="form__input"
+                  placeholder="Add a task..."
+                />
+                <button class="form__add-todo" type="submit">
+                  <i class="fas fa-plus-circle"></i>
+                </button>
+              </div>
+            </form>
+
+            <div class="app__filter">
+              <span class="filter-option filter-option--active">All</span>
+              <span class="filter-option">Completed</span>
+              <span class="filter-option">Not Completed</span>
+              <span class="filter-option">Clear Completed</span>
+            </div>
+
+            <div class="app__filter-mobile">
+              <span class="filter-option-clear">Clear Completed</span>
+              <select class="filter-options-select" aria-label="Filter Options">
+                <option value="all" selected>All</option>
+                <option value="completed">Completed</option>
+                <option value="not-completed">Not Completed</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="todo">
+            <ul class="todo__list">
+              <!-- This should be added by JS -->
+              <!-- <li class="todo__item">
+                <p class="todo__title">todo #1</p>
+                <div class="todo__details">
+                  <span class="todo__created-at">1402/1/28</span>
+                  <button class="todo__check">
+                    <i class="far fa-check-square"></i>
+                  </button>
+                  <button class="todo__edit">
+                    <i class="far fa-edit"></i>
+                  </button>
+                  <button class="todo__remove">
+                    <i class="far fa-trash-alt"></i>
+                  </button>
+                </div>
+              </li> -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="src/js/script.js"></script>
+  </body>
+</html>
